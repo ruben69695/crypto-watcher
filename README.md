@@ -1,1 +1,1 @@
-# crypto-watcher
+# Crypto Watcher for GNOME

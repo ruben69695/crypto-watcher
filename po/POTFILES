@@ -1,0 +1,11 @@
+data/org.gnome.cryptowatcher.desktop.in
+data/org.gnome.cryptowatcher.appdata.xml.in
+data/org.gnome.cryptowatcher.gschema.xml
+
+src/window.ui
+src/headerBar.ui
+
+src/main.py
+src/window.py
+src/headerbar.py
+
