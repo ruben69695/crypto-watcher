@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/cryptowatcher">
+    <file>window.ui</file>
+    <file>headerBar.ui</file>
+    <file>coinRow.ui</file>
+    <file>coinContainer.ui</file>
+    <file compressed="true">images/bitcoin.png</file>
+    <file compressed="true">images/ethereum.png</file>
+    <file compressed="true">images/litecoin.png</file>
+  </gresource>
+</gresources>
