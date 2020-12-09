@@ -39,7 +39,7 @@ class CoinRow(Gtk.Box):
 
     def _build_widgets(self):
         self._coin_name.set_text(self.coin_model.name)
-        self._coin_price.set_text(self.coin_model.price)
+        self._coin_price.set_text(str(self.coin_model.prices[0].value) + ' ' + self.coin_model.prices[0].unit.upper())
 
         pix = Pixbuf.new_from_resource_at_scale(
             self.coin_model.logo, 75, 75, True)

@@ -15,11 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk
-from gi.repository import Gio
+from gi.repository import Gtk, Gio, GLib
 
 from .models import Coin
 from .coinrow import CoinRow
+from .clients import CoinClient
+from .cryptoservice import CryptoService
 
 
 @Gtk.Template(resource_path='/org/gnome/cryptowatcher/coinContainer.ui')
@@ -31,17 +32,41 @@ class CoinContainer(Gtk.Box):
     def __init__(self):
         Gtk.Box.__init__(self)
         
+        self.coin_widgets = []
         self.coins = [
-            Coin('Bitcoin', '$19,121.27 USDT', '/org/gnome/cryptowatcher/images/bitcoin.png'),
-            Coin('Ethereum', '$593.12 USDT', '/org/gnome/cryptowatcher/images/ethereum.png'),
-            Coin('Litecoin', '$82.60 USDT', '/org/gnome/cryptowatcher/images/litecoin.png')
+            # Coin('Bitcoin', '$19,121.27 USDT', '/org/gnome/cryptowatcher/images/bitcoin.png'),
+            # Coin('Ethereum', '$593.12 USDT', '/org/gnome/cryptowatcher/images/ethereum.png'),
+            # Coin('Litecoin', '$82.60 USDT', '/org/gnome/cryptowatcher/images/litecoin.png')
         ]
+
+        self.service = CryptoService(CoinClient())
+        self.service.on_coins_update += self._on_coins_update
         
         self._build_widgets()
 
     def _build_widgets(self):
         
         for coin in self.coins:
-            self.add(CoinRow(coin))
+            self.coin_widgets.append(CoinRow(coin))
+            self.add(self.coin_widgets[-1])
+    
+    def _on_coins_update(self, coins):
+        print('GTK :: coins updated :: event received')
+        GLib.idle_add(self._refresh, coins)
+
+    def _refresh(self, coins):
+        
+        # Remove current widgets
+        for coin_widget in self.coin_widgets:
+            self.remove(coin_widget)
+
+        self.coin_widgets.clear()
+
+        # Redraw new widgets
+        for coin in coins:
+            self.coin_widgets.append(CoinRow(coin))
+            self.add(self.coin_widgets[-1])
+        
+
 
 

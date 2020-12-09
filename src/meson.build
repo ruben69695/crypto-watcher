@@ -32,7 +32,10 @@ crypto_watcher_sources = [
   'headerbar.py',
   'coinrow.py',
   'coincontainer.py',
-  'models.py'
+  'models.py',
+  'clients.py',
+  'constants.py',
+  'cryptoservice.py'
 ]
 
 install_data(crypto_watcher_sources, install_dir: moduledir)
